@@ -4,6 +4,10 @@ Multi-agent RAG system for European football analysis, built with LangGraph, Fas
 
 ---
 
+### **APP:** https://football-multiagent-rag.vercel.app/
+
+---
+
 ## 📋 General Description
 
 **Football RAG Multiagent** is an intelligent system that combines:
