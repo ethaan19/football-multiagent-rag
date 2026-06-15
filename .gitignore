@@ -1,9 +1,6 @@
 # Variables de entorno
 .env
 
-# ChromaDB (base de datos local)
-chroma_db/
-
 # Python
 __pycache__/
 *.py[cod]
