@@ -26,7 +26,11 @@ app = FastAPI(
 # CORS para poder conectar con cualquier frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:8000",
+        "https://football-multiagent-rag.vercel.app",
+        "https://football-multiagent-rag-production.up.railway.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
