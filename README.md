@@ -278,20 +278,13 @@ AZURE_OPENAI_API_KEY=your_azure_key
 AZURE_OPENAI_DEPLOYMENT=gpt-4o-mini
 ```
 
-### 4. Generate knowledge base
-
-```bash
-python fetch_football_data.py    # Fetches data
-python embed_and_upload.py       # Generates embeddings
-```
-
-### 5. Start the API
+### 4. Start the API
 
 ```bash
 uvicorn api.main:app --reload
 ```
 
-### 6. Open interface
+### 5. Open interface
 
 Open `index.html` in your browser.
 
