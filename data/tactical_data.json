@@ -1,0 +1,383 @@
+{
+  "8634": {
+    "team_id": 8634,
+    "team_name": "Barcelona",
+    "league": "La Liga",
+    "formation": "4-3-3",
+    "playstyle": "Posesionista",
+    "characteristics": [
+      "Ataque fluido",
+      "Líderes actuales",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "8633": {
+    "team_id": 8633,
+    "team_name": "Real Madrid",
+    "league": "La Liga",
+    "formation": "4-3-3",
+    "playstyle": "Posesionista",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "10205": {
+    "team_id": 10205,
+    "team_name": "Villarreal",
+    "league": "La Liga",
+    "formation": "4-2-3-1",
+    "playstyle": "Contraataque rápido",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "9906": {
+    "team_id": 9906,
+    "team_name": "Atletico Madrid",
+    "league": "La Liga",
+    "formation": "3-5-2",
+    "playstyle": "Defensa cerrada",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "9825": {
+    "team_id": 9825,
+    "team_name": "Arsenal",
+    "league": "Premier League",
+    "formation": "4-3-3",
+    "playstyle": "Posesionista",
+    "characteristics": [
+      "Ataque fluido",
+      "Líderes actuales",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "8456": {
+    "team_id": 8456,
+    "team_name": "Manchester City",
+    "league": "Premier League",
+    "formation": "4-3-3",
+    "playstyle": "Posesionista",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "10260": {
+    "team_id": 10260,
+    "team_name": "Manchester United",
+    "league": "Premier League",
+    "formation": "4-2-3-1",
+    "playstyle": "Contraataque rápido",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "10252": {
+    "team_id": 10252,
+    "team_name": "Aston Villa",
+    "league": "Premier League",
+    "formation": "3-5-2",
+    "playstyle": "Defensa cerrada",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "9823": {
+    "team_id": 9823,
+    "team_name": "Bayern München",
+    "league": "Bundesliga",
+    "formation": "4-3-3",
+    "playstyle": "Posesionista",
+    "characteristics": [
+      "Ataque fluido",
+      "Líderes actuales",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "9789": {
+    "team_id": 9789,
+    "team_name": "Borussia Dortmund",
+    "league": "Bundesliga",
+    "formation": "4-3-3",
+    "playstyle": "Posesionista",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "178475": {
+    "team_id": 178475,
+    "team_name": "RB Leipzig",
+    "league": "Bundesliga",
+    "formation": "4-2-3-1",
+    "playstyle": "Contraataque rápido",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "10269": {
+    "team_id": 10269,
+    "team_name": "VfB Stuttgart",
+    "league": "Bundesliga",
+    "formation": "3-5-2",
+    "playstyle": "Defensa cerrada",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "8564": {
+    "team_id": 8564,
+    "team_name": "Milan",
+    "league": "Serie A",
+    "formation": "4-3-3",
+    "playstyle": "Posesionista",
+    "characteristics": [
+      "Defensa sólida",
+      "Líderes actuales"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "8524": {
+    "team_id": 8524,
+    "team_name": "Atalanta",
+    "league": "Serie A",
+    "formation": "4-3-3",
+    "playstyle": "Posesionista",
+    "characteristics": [
+      "Defensa sólida"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "9857": {
+    "team_id": 9857,
+    "team_name": "Bologna",
+    "league": "Serie A",
+    "formation": "4-2-3-1",
+    "playstyle": "Contraataque rápido",
+    "characteristics": [
+      "Defensa sólida"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "8529": {
+    "team_id": 8529,
+    "team_name": "Cagliari",
+    "league": "Serie A",
+    "formation": "3-5-2",
+    "playstyle": "Defensa cerrada",
+    "characteristics": [
+      "Defensa sólida"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "9847": {
+    "team_id": 9847,
+    "team_name": "Paris Saint-Germain",
+    "league": "Ligue 1",
+    "formation": "4-3-3",
+    "playstyle": "Posesionista",
+    "characteristics": [
+      "Ataque fluido",
+      "Líderes actuales",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "8588": {
+    "team_id": 8588,
+    "team_name": "Lens",
+    "league": "Ligue 1",
+    "formation": "4-3-3",
+    "playstyle": "Posesionista",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "8639": {
+    "team_id": 8639,
+    "team_name": "Lille",
+    "league": "Ligue 1",
+    "formation": "4-2-3-1",
+    "playstyle": "Contraataque rápido",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  },
+  "9748": {
+    "team_id": 9748,
+    "team_name": "Lyon",
+    "league": "Ligue 1",
+    "formation": "3-5-2",
+    "playstyle": "Defensa cerrada",
+    "characteristics": [
+      "Ataque fluido",
+      "Consistentes"
+    ],
+    "strengths": [
+      "Juego coordinado",
+      "Transiciones rápidas"
+    ],
+    "weaknesses": [
+      "Inconsistencia en momentos clave",
+      "Vulnerabilidad a presión alta"
+    ]
+  }
+}
