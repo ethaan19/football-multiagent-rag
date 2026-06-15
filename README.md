@@ -248,7 +248,7 @@ football-rag/
 
 ---
 
-## 🚀 Installation and Usage
+## 🚀 Installation and Usage (Local)
 
 ### 1. Clone the repository
 
