@@ -80,6 +80,10 @@ def maybe_run_comparative(state: AgentState) -> AgentState:
 def consolidator_node(state: AgentState) -> AgentState:
     print(f"\n🔗 Consolidando respuestas...")
 
+    if state.get("final_answer"):
+        print("⛔ Pregunta fuera de dominio, devolviendo rechazo del router")
+        return state
+
     results = []
 
     if state.get("performance_result"):
