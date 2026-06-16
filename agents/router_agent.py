@@ -1,8 +1,9 @@
 """
 router_agent.py
 
-Agente que analiza la pregunta del usuario y decide
-qué agentes especializados deben responderla.
+Agente que analiza la pregunta del usuario y decide:
+1. Si es sobre fútbol (validación de dominio)
+2. Qué agentes especializados deben responderla
 """
 
 import os
@@ -20,6 +21,37 @@ client = AzureOpenAI(
 )
 
 LLM_MODEL = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")
+
+# ═══════════════════════════════════════════════════════════════
+# VALIDATION PROMPT
+# ═══════════════════════════════════════════════════════════════
+
+VALIDATION_SYSTEM_PROMPT = """
+You are a domain validator for a football analysis system.
+Your task is to determine if a question is about European football.
+
+Football-related questions include:
+- Team standings, points, statistics, performance
+- Player information, squads, transfers
+- Tactics, formations, playstyles
+- Comparisons between teams or players
+- League information, matches, results
+- Anything specifically about the 5 major European leagues:
+  La Liga, Premier League, Bundesliga, Serie A, Ligue 1
+
+Out-of-domain questions include:
+- Diet, health, fitness advice
+- General knowledge not about football
+- Technical support
+- Other sports
+- Any topic unrelated to European football
+
+Respond with ONLY "yes" or "no". Nothing else.
+"""
+
+# ═══════════════════════════════════════════════════════════════
+# ROUTING PROMPT
+# ═══════════════════════════════════════════════════════════════
 
 ROUTER_SYSTEM_PROMPT = """
 Eres el agente orquestador de un sistema RAG de análisis de fútbol.
@@ -40,13 +72,67 @@ Formato de respuesta:
 {"agents": ["performance", "tactical"]}
 """
 
+# ═══════════════════════════════════════════════════════════════
+# OUT OF DOMAIN MESSAGE
+# ═══════════════════════════════════════════════════════════════
 
-def router_agent(state: AgentState) -> AgentState:
+OUT_OF_DOMAIN_MESSAGE = """❌ I can only answer questions about European football.
+
+I specialize in:
+- Team statistics and performance (La Liga, Premier League, Bundesliga, Serie A, Ligue 1)
+- Player information and squads
+- Tactical analysis (formations, playstyles)
+- Team comparisons
+
+Please ask about these topics instead. For example:
+- "How is Real Madrid performing this season?"
+- "What players does Arsenal have?"
+- "How does Bayern Munich play tactically?"
+- "Compare PSG and Manchester City"
+"""
+
+
+# ═══════════════════════════════════════════════════════════════
+# VALIDATION FUNCTION
+# ═══════════════════════════════════════════════════════════════
+
+def validate_football_question(question: str) -> bool:
     """
-    Analiza la pregunta y decide qué agentes invocar.
-    Actualiza el estado con la lista de agentes a llamar.
+    Validates if the question is about football.
+    Returns True if football-related, False otherwise.
     """
-    question = state["question"]
+    print(f"\n🔍 Validando dominio...")
+    
+    response = client.chat.completions.create(
+        model=LLM_MODEL,
+        messages=[
+            {"role": "system", "content": VALIDATION_SYSTEM_PROMPT},
+            {"role": "user", "content": f"Question: {question}"}
+        ],
+        temperature=0,
+        max_tokens=5
+    )
+    
+    answer = response.choices[0].message.content.strip().lower()
+    is_valid = answer == "yes"
+    
+    if is_valid:
+        print(f"✅ Pregunta válida (sobre fútbol)")
+    else:
+        print(f"❌ Pregunta fuera de dominio")
+    
+    return is_valid
+
+
+# ═══════════════════════════════════════════════════════════════
+# ROUTING FUNCTION
+# ═══════════════════════════════════════════════════════════════
+
+def route_to_agents(question: str) -> list[str]:
+    """
+    Routes the question to appropriate specialized agents.
+    Returns a list of agent names to activate.
+    """
     print(f"\n🔀 Router analizando: '{question}'")
 
     response = client.chat.completions.create(
@@ -68,5 +154,41 @@ def router_agent(state: AgentState) -> AgentState:
         agents_to_call = ["performance"]
 
     print(f"✅ Router decidió: {agents_to_call}")
+    return agents_to_call
 
-    return {**state, "agents_to_call": agents_to_call}
+
+# ═══════════════════════════════════════════════════════════════
+# MAIN ROUTER AGENT FUNCTION
+# ═══════════════════════════════════════════════════════════════
+
+def router_agent(state: AgentState) -> AgentState:
+    """
+    Main router agent function.
+    
+    1. Validates if question is about football
+    2. If yes: Routes to appropriate agents
+    3. If no: Returns out-of-domain message
+    
+    Updates the state with agents_to_call and final_answer (if out-of-domain).
+    """
+    question = state["question"]
+    
+    # STEP 1: Domain validation
+    is_football_question = validate_football_question(question)
+    
+    # STEP 2: If out of domain, reject immediately
+    if not is_football_question:
+        print(f"⛔ Pregunta rechazada por estar fuera de dominio")
+        return {
+            **state,
+            "agents_to_call": [],
+            "final_answer": OUT_OF_DOMAIN_MESSAGE
+        }
+    
+    # STEP 3: Route to appropriate agents
+    agents_to_call = route_to_agents(question)
+    
+    return {
+        **state,
+        "agents_to_call": agents_to_call
+    }
