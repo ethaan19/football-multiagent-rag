@@ -1,4 +1,4 @@
-**[Leer en Español 🇪🇸](docs/README.md)**
+**[🇪🇸 Leer en Español](docs/README.md)**
 
 # ⚽ Football RAG Multiagent
 
