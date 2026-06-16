@@ -23,22 +23,22 @@ LLM_MODEL = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")
 EMBEDDING_MODEL = "text-embedding-3-small"
 
 COMPARATIVE_SYSTEM_PROMPT = """
-Eres un analista de élite especializado en comparativas de fútbol europeo.
-Tu especialidad es comparar equipos y jugadores de forma objetiva, usando datos estadísticos y análisis táctico.
+You are an elite analyst specializing in European football comparisons.
+Your specialty is comparing teams and players objectively, using statistical data and tactical analysis.
 
-INSTRUCCIONES:
-- Responde siempre en español.
-- Basa tu comparativa ÚNICAMENTE en el contexto proporcionado.
-- Estructura siempre la comparativa en secciones claras (estadísticas, táctica, jugadores clave).
-- Sé objetivo y equilibrado, destacando puntos fuertes y débiles de cada lado.
-- Termina con una conclusión clara y justificada.
-- Si no tienes suficiente información en el contexto, dilo claramente.
-- Usa tablas o listas cuando ayuden a clarificar la comparativa.
+INSTRUCTIONS:
+- Always respond in English.
+- Base your comparison ONLY on the provided context.
+- Always structure the comparison in clear sections (statistics, tactics, key players).
+- Be objective and balanced, highlighting strengths and weaknesses on each side.
+- End with a clear and justified conclusion.
+- If you do not have enough information in the context, say so clearly.
+- Use tables or lists when they help clarify the comparison.
 """
 
 
 def search_all_collections(query: str, n_results: int = 4) -> str:
-    """Busca en las 3 colecciones de ChromaDB y combina el contexto"""
+    """Searches all 3 ChromaDB collections and combines the context"""
     chroma_client = chromadb.PersistentClient(path="chroma_db")
 
     embedding_response = client.embeddings.create(
@@ -59,15 +59,15 @@ def search_all_collections(query: str, n_results: int = 4) -> str:
         if documents:
             context_parts.append(f"=== {collection_name.upper()} ===\n" + "\n\n".join(documents))
 
-    return "\n\n".join(context_parts) if context_parts else "No se encontraron datos relevantes."
+    return "\n\n".join(context_parts) if context_parts else "No relevant data found."
 
 
 def comparative_agent(state: AgentState) -> AgentState:
     """
-    Busca en todas las colecciones y genera una comparativa detallada.
+    Searches all collections and generates a detailed comparison.
     """
     question = state["question"]
-    print(f"\n⚖️  Comparative Agent procesando: '{question}'")
+    print(f"\n⚖️  Comparative Agent processing: '{question}'")
 
     context = search_all_collections(question)
 
@@ -75,12 +75,12 @@ def comparative_agent(state: AgentState) -> AgentState:
         model=LLM_MODEL,
         messages=[
             {"role": "system", "content": COMPARATIVE_SYSTEM_PROMPT},
-            {"role": "user", "content": f"Contexto:\n{context}\n\nPregunta: {question}"}
+            {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {question}"}
         ],
         temperature=0.3
     )
 
     result = response.choices[0].message.content.strip()
-    print(f"✅ Comparative Agent completado")
+    print(f"✅ Comparative Agent completed")
 
     return {**state, "comparative_result": result}

@@ -23,65 +23,65 @@ LLM_MODEL = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")
 EMBEDDING_MODEL = "text-embedding-3-small"
 
 PERFORMANCE_SYSTEM_PROMPT = """
-Eres un analista experto en estadísticas de fútbol europeo.
-Tu especialidad son los datos de rendimiento de equipos: posiciones en la tabla, puntos, victorias, derrotas, goles.
+You are an expert analyst in European football statistics.
+Your specialty is team performance data: table standings, points, wins, losses, goals.
 
-Tienes acceso a datos reales de las 5 grandes ligas europeas (La Liga, Premier League, Bundesliga, Serie A, Ligue 1).
+You have access to real data from the 5 major European leagues (La Liga, Premier League, Bundesliga, Serie A, Ligue 1).
 
-INSTRUCCIONES:
-- Responde siempre en español.
-- Basa tu respuesta ÚNICAMENTE en el contexto proporcionado.
-- Sé preciso con los números y estadísticas.
-- Si no tienes suficiente información en el contexto, dilo claramente.
-- Usa un tono analítico pero accesible.
-- Estructura tu respuesta de forma clara y concisa.
+INSTRUCTIONS:
+- Always respond in English.
+- Base your response ONLY on the provided context.
+- Be precise with numbers and statistics.
+- If you do not have enough information in the context, say so clearly.
+- Use an analytical yet accessible tone.
+- Structure your response clearly and concisely.
 """
 
 
 def search_teams(query: str, n_results: int = 4) -> str:
-    """Busca equipos relevantes en ChromaDB según la query"""
+    """Searches for relevant teams in ChromaDB based on the query"""
     chroma_client = chromadb.PersistentClient(path="chroma_db")
     collection = chroma_client.get_collection("teams")
 
-    # Generar embedding de la query
+    # Generate query embedding
     embedding_response = client.embeddings.create(
         input=query,
         model=EMBEDDING_MODEL
     )
     query_embedding = embedding_response.data[0].embedding
 
-    # Buscar en ChromaDB
+    # Search in ChromaDB
     results = collection.query(
         query_embeddings=[query_embedding],
         n_results=n_results
     )
 
-    # Formatear resultados
+    # Format results
     documents = results.get("documents", [[]])[0]
-    return "\n\n".join(documents) if documents else "No se encontraron datos relevantes."
+    return "\n\n".join(documents) if documents else "No relevant data found."
 
 
 def performance_agent(state: AgentState) -> AgentState:
     """
-    Busca estadísticas de equipos en ChromaDB y genera una respuesta analítica.
+    Searches for team statistics in ChromaDB and generates an analytical response.
     """
     question = state["question"]
-    print(f"\n📊 Performance Agent procesando: '{question}'")
+    print(f"\n📊 Performance Agent processing: '{question}'")
 
-    # Buscar contexto relevante
+    # Search for relevant context
     context = search_teams(question)
 
-    # Generar respuesta con LLM
+    # Generate response with LLM
     response = client.chat.completions.create(
         model=LLM_MODEL,
         messages=[
             {"role": "system", "content": PERFORMANCE_SYSTEM_PROMPT},
-            {"role": "user", "content": f"Contexto:\n{context}\n\nPregunta: {question}"}
+            {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {question}"}
         ],
         temperature=0.3
     )
 
     result = response.choices[0].message.content.strip()
-    print(f"✅ Performance Agent completado")
+    print(f"✅ Performance Agent completed")
 
     return {**state, "performance_result": result}

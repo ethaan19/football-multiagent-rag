@@ -30,18 +30,18 @@ client = AzureOpenAI(
 LLM_MODEL = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")
 
 CONSOLIDATOR_SYSTEM_PROMPT = """
-Eres el consolidador final de un sistema multiagente de análisis de fútbol.
-Recibirás los análisis de uno o varios agentes especializados y tu tarea es unirlos
-en una única respuesta coherente, clara y bien estructurada.
+You are the final consolidator of a multi-agent football analysis system.
+You will receive reports from one or more specialized agents and your task is to merge them
+into a single coherent, clear, and well-structured response.
 
-INSTRUCCIONES:
-- Responde siempre en español.
-- Integra todos los análisis recibidos de forma natural, sin repetir información.
-- Elimina redundancias pero conserva todos los datos importantes.
-- Estructura la respuesta con secciones claras si hay información de varios agentes.
-- Mantén un tono experto pero accesible.
-- La respuesta final debe ser completa y autocontenida.
-- No menciones que eres un consolidador ni que hay varios agentes detrás.
+INSTRUCTIONS:
+- Always respond in English.
+- Integrate all received analyses naturally, without repeating information.
+- Remove redundancies but preserve all important data.
+- Structure the response with clear sections if there is information from multiple agents.
+- Maintain an expert but accessible tone.
+- The final response must be complete and self-contained.
+- Do not mention that you are a consolidator or that there are multiple agents behind the scenes.
 """
 
 
@@ -78,25 +78,25 @@ def maybe_run_comparative(state: AgentState) -> AgentState:
 # ─────────────────────────────────────────────
 
 def consolidator_node(state: AgentState) -> AgentState:
-    print(f"\n🔗 Consolidando respuestas...")
+    print(f"\n🔗 Consolidating responses...")
 
     if state.get("final_answer"):
-        print("⛔ Pregunta fuera de dominio, devolviendo rechazo del router")
+        print("⛔ Out of domain question, returning router rejection")
         return state
 
     results = []
 
     if state.get("performance_result"):
-        results.append(f"[ANÁLISIS DE RENDIMIENTO]\n{state['performance_result']}")
+        results.append(f"[PERFORMANCE ANALYSIS]\n{state['performance_result']}")
     if state.get("tactical_result"):
-        results.append(f"[ANÁLISIS TÁCTICO]\n{state['tactical_result']}")
+        results.append(f"[TACTICAL ANALYSIS]\n{state['tactical_result']}")
     if state.get("players_result"):
-        results.append(f"[ANÁLISIS DE JUGADORES]\n{state['players_result']}")
+        results.append(f"[PLAYERS ANALYSIS]\n{state['players_result']}")
     if state.get("comparative_result"):
-        results.append(f"[ANÁLISIS COMPARATIVO]\n{state['comparative_result']}")
+        results.append(f"[COMPARATIVE ANALYSIS]\n{state['comparative_result']}")
 
     if len(results) == 1:
-        print("✅ Un solo agente, respuesta directa")
+        print("✅ Single agent, direct response")
         return {**state, "final_answer": results[0].split("\n", 1)[1]}
 
     combined = "\n\n".join(results)
@@ -105,13 +105,13 @@ def consolidator_node(state: AgentState) -> AgentState:
         model=LLM_MODEL,
         messages=[
             {"role": "system", "content": CONSOLIDATOR_SYSTEM_PROMPT},
-            {"role": "user", "content": f"Pregunta original: {state['question']}\n\nAnálisis de los agentes:\n{combined}"}
+            {"role": "user", "content": f"Original Question: {state['question']}\n\nAgent Analyses:\n{combined}"}
         ],
         temperature=0.3
     )
 
     final_answer = response.choices[0].message.content.strip()
-    print("✅ Consolidación completada")
+    print("✅ Consolidation completed")
 
     return {**state, "final_answer": final_answer}
 
@@ -161,13 +161,13 @@ def run_query(question: str) -> str:
     }
 
     print(f"\n{'='*50}")
-    print(f"❓ Pregunta: {question}")
+    print(f"❓ Question: {question}")
     print(f"{'='*50}")
 
     result = graph.invoke(initial_state)
 
     print(f"\n{'='*50}")
-    print(f"✨ Respuesta final:")
+    print(f"✨ Final Response:")
     print(f"{'='*50}")
     print(result["final_answer"])
 
@@ -176,9 +176,9 @@ def run_query(question: str) -> str:
 
 if __name__ == "__main__":
     preguntas_test = [
-        "¿Cómo está rindiendo el Real Madrid esta temporada?",
-        "¿Qué jugadores tiene el Arsenal?",
-        "Compara tácticamente al Bayern Munich con el Manchester City",
+        "How is Real Madrid performing this season?",
+        "What players does Arsenal have?",
+        "Compare Bayern Munich with Manchester City tactically",
     ]
 
     for pregunta in preguntas_test:

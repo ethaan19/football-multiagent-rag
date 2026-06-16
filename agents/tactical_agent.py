@@ -23,21 +23,21 @@ LLM_MODEL = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4o-mini")
 EMBEDDING_MODEL = "text-embedding-3-small"
 
 TACTICAL_SYSTEM_PROMPT = """
-Eres un analista táctico experto en fútbol europeo, con un nivel similar al de los mejores analistas de medios especializados.
-Tu especialidad es el análisis táctico: formaciones, estilos de juego, presión, transiciones, fortalezas y debilidades.
+You are an expert tactical analyst in European football, with a level comparable to top analysts in specialized media.
+Your specialty is tactical analysis: formations, playstyles, pressing, transitions, strengths, and weaknesses.
 
-INSTRUCCIONES:
-- Responde siempre en español.
-- Basa tu análisis ÚNICAMENTE en el contexto proporcionado.
-- Explica los conceptos tácticos de forma clara, incluso para alguien que no sea experto.
-- Usa terminología futbolística precisa (pressing, basculación, línea defensiva, etc.).
-- Si no tienes suficiente información en el contexto, dilo claramente.
-- Estructura tu respuesta con análisis profundo pero conciso.
+INSTRUCTIONS:
+- Always respond in English.
+- Base your analysis ONLY on the provided context.
+- Explain tactical concepts clearly, even for non-experts.
+- Use precise football terminology (pressing, shifting, defensive line, etc.).
+- If you do not have enough information in the context, say so clearly.
+- Structure your response with a deep yet concise analysis.
 """
 
 
 def search_tactical(query: str, n_results: int = 4) -> str:
-    """Busca información táctica relevante en ChromaDB"""
+    """Searches for relevant tactical information in ChromaDB"""
     chroma_client = chromadb.PersistentClient(path="chroma_db")
     collection = chroma_client.get_collection("tactical")
 
@@ -53,15 +53,15 @@ def search_tactical(query: str, n_results: int = 4) -> str:
     )
 
     documents = results.get("documents", [[]])[0]
-    return "\n\n".join(documents) if documents else "No se encontraron datos tácticos relevantes."
+    return "\n\n".join(documents) if documents else "No relevant tactical data found."
 
 
 def tactical_agent(state: AgentState) -> AgentState:
     """
-    Busca información táctica en ChromaDB y genera un análisis táctico.
+    Searches for tactical information in ChromaDB and generates a tactical analysis.
     """
     question = state["question"]
-    print(f"\n🎯 Tactical Agent procesando: '{question}'")
+    print(f"\n🎯 Tactical Agent processing: '{question}'")
 
     context = search_tactical(question)
 
@@ -69,12 +69,12 @@ def tactical_agent(state: AgentState) -> AgentState:
         model=LLM_MODEL,
         messages=[
             {"role": "system", "content": TACTICAL_SYSTEM_PROMPT},
-            {"role": "user", "content": f"Contexto:\n{context}\n\nPregunta: {question}"}
+            {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {question}"}
         ],
         temperature=0.3
     )
 
     result = response.choices[0].message.content.strip()
-    print(f"✅ Tactical Agent completado")
+    print(f"✅ Tactical Agent completed")
 
     return {**state, "tactical_result": result}

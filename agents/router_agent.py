@@ -54,21 +54,21 @@ Respond with ONLY "yes" or "no". Nothing else.
 # ═══════════════════════════════════════════════════════════════
 
 ROUTER_SYSTEM_PROMPT = """
-Eres el agente orquestador de un sistema RAG de análisis de fútbol.
-Tu única tarea es analizar la pregunta del usuario y decidir qué agentes especializados deben responderla.
+You are the orchestrator agent for a football analysis RAG system.
+Your sole task is to analyze the user's question and decide which specialized agents should answer it.
 
-Los agentes disponibles son:
-- "performance": Para preguntas sobre estadísticas, standings, puntos, victorias, goles, rachas de equipos.
-- "tactical": Para preguntas sobre formaciones, estilos de juego, fortalezas y debilidades tácticas de equipos.
-- "players": Para preguntas sobre jugadores específicos, sus posiciones, edades o qué jugadores tiene un equipo.
-- "comparative": Para preguntas que comparan dos o más equipos o jugadores entre sí.
+Available agents are:
+- "performance": For questions about statistics, standings, points, wins, goals, and team streaks.
+- "tactical": For questions about formations, playstyles, and tactical strengths/weaknesses of teams.
+- "players": For questions about specific players, their positions, ages, or squad lists of teams.
+- "comparative": For questions that compare two or more teams or players with each other.
 
-REGLAS:
-- Puedes seleccionar uno o varios agentes si la pregunta lo requiere.
-- Si la pregunta compara dos equipos, usa "comparative" junto con los agentes necesarios.
-- Responde ÚNICAMENTE con un JSON válido, sin texto adicional, sin markdown, sin explicaciones.
+RULES:
+- You can select one or multiple agents if the question requires it.
+- If the question compares two teams, use "comparative" along with any other necessary agents.
+- Respond ONLY with a valid JSON, with no additional text, no markdown, and no explanations.
 
-Formato de respuesta:
+Response format:
 {"agents": ["performance", "tactical"]}
 """
 
@@ -101,7 +101,7 @@ def validate_football_question(question: str) -> bool:
     Validates if the question is about football.
     Returns True if football-related, False otherwise.
     """
-    print(f"\n🔍 Validando dominio...")
+    print(f"\n🔍 Validating domain...")
     
     response = client.chat.completions.create(
         model=LLM_MODEL,
@@ -117,9 +117,9 @@ def validate_football_question(question: str) -> bool:
     is_valid = answer == "yes"
     
     if is_valid:
-        print(f"✅ Pregunta válida (sobre fútbol)")
+        print(f"✅ Valid question (about football)")
     else:
-        print(f"❌ Pregunta fuera de dominio")
+        print(f"❌ Out-of-domain question")
     
     return is_valid
 
@@ -133,13 +133,13 @@ def route_to_agents(question: str) -> list[str]:
     Routes the question to appropriate specialized agents.
     Returns a list of agent names to activate.
     """
-    print(f"\n🔀 Router analizando: '{question}'")
+    print(f"\n🔀 Router analyzing: '{question}'")
 
     response = client.chat.completions.create(
         model=LLM_MODEL,
         messages=[
             {"role": "system", "content": ROUTER_SYSTEM_PROMPT},
-            {"role": "user", "content": f"Pregunta: {question}"}
+            {"role": "user", "content": f"Question: {question}"}
         ],
         temperature=0
     )
@@ -150,10 +150,10 @@ def route_to_agents(question: str) -> list[str]:
         parsed = json.loads(raw)
         agents_to_call = parsed.get("agents", ["performance"])
     except json.JSONDecodeError:
-        print(f"⚠️  Error parseando respuesta del router: {raw}")
+        print(f"⚠️  Error parsing router response: {raw}")
         agents_to_call = ["performance"]
 
-    print(f"✅ Router decidió: {agents_to_call}")
+    print(f"✅ Router decided: {agents_to_call}")
     return agents_to_call
 
 
@@ -178,7 +178,7 @@ def router_agent(state: AgentState) -> AgentState:
     
     # STEP 2: If out of domain, reject immediately
     if not is_football_question:
-        print(f"⛔ Pregunta rechazada por estar fuera de dominio")
+        print(f"⛔ Question rejected for being out of domain")
         return {
             **state,
             "agents_to_call": [],

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -358,7 +358,7 @@
 
   <header>
     <h1>FOOTBALL-RAG [MULTIAGENT]</h1>
-    <p>> Análisis de las 5 grandes ligas europeas con IA multiagéntica</p>
+    <p>> Analysis of the 5 big European leagues with multi-agent AI</p>
   </header>
 
   <div class="container">
@@ -367,20 +367,20 @@
       <input
         type="text"
         id="question"
-        placeholder="ejecuta una consulta..."
+        placeholder="run a query..."
         onkeydown="if(event.key==='Enter') sendQuery()"
       />
-      <button onclick="sendQuery()" id="btn">EJECUTAR</button>
+      <button onclick="sendQuery()" id="btn">RUN</button>
     </div>
 
     <div class="examples">
-      <div class="examples-label">Comandos disponibles:</div>
+      <div class="examples-label">Available commands:</div>
       <div class="examples-grid">
-        <div class="chip" onclick="fillQuestion('¿Cómo está rindiendo el Real Madrid esta temporada?')">status real-madrid</div>
-        <div class="chip" onclick="fillQuestion('¿Qué jugadores tiene el Arsenal?')">players arsenal</div>
-        <div class="chip" onclick="fillQuestion('¿Cómo juega tácticamente el Bayern Munich?')">tactic bayern</div>
-        <div class="chip" onclick="fillQuestion('Compara al PSG con el Olympique de Marsella')">compare psg marseille</div>
-        <div class="chip" onclick="fillQuestion('¿Qué equipo lidera la Bundesliga?')">leader bundesliga</div>
+        <div class="chip" onclick="fillQuestion('How is Real Madrid performing this season?')">status real-madrid</div>
+        <div class="chip" onclick="fillQuestion('What players does Arsenal have?')">players arsenal</div>
+        <div class="chip" onclick="fillQuestion('How does Bayern Munich play tactically?')">tactic bayern</div>
+        <div class="chip" onclick="fillQuestion('Compare PSG with Olympique de Marseille')">compare psg marseille</div>
+        <div class="chip" onclick="fillQuestion('Which team leads the Bundesliga?')">leader bundesliga</div>
       </div>
     </div>
 

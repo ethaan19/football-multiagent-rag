@@ -371,24 +371,24 @@ TEAM_PLAYERS = {
     ]
 }
 
-# Información táctica por equipo (será generada automáticamente en el script)
+# Tactical information per team (automatically generated in the script)
 TACTICAL_INFO = {
     "formations": ["4-3-3", "4-2-3-1", "5-3-2", "3-5-2", "4-1-4-1"],
     "playstyles": [
-        "Posesionista",
-        "Contraataque rápido",
-        "Defensa cerrada",
-        "Presión alta",
-        "Juego combinativo"
+        "Possession-based",
+        "Fast counter-attack",
+        "Closed defense",
+        "High press",
+        "Combinative play"
     ],
     "characteristics": [
-        "Dominio de posesión",
-        "Transiciones rápidas",
-        "Presión defensiva",
-        "Juego lateral",
-        "Centros frecuentes",
-        "Defensa escalonada",
-        "Ataque organizado",
-        "Juego directo"
+        "Possession dominance",
+        "Fast transitions",
+        "Defensive press",
+        "Flank play",
+        "Frequent crosses",
+        "Staggered defense",
+        "Organized attack",
+        "Direct play"
     ]
 }
