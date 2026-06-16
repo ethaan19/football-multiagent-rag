@@ -1,6 +1,6 @@
-# ⚽ Football RAG Multiagent (Español)
+**[🇬🇧 Read in English](../README.md)**
 
-Este documento es una traducción del [README.md](../README.md) original en inglés.
+# ⚽ Football RAG Multiagent (Español)
 
 ---
 

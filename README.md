@@ -1,6 +1,8 @@
+**[🇪🇸 Leer en Español](docs/README.md)**
+
 # ⚽ Football RAG Multiagent
 
-[Leer en Español 🇪🇸](docs/README.md)
+---
 
 Multi-agent RAG system for European football analysis, built with LangGraph, FastAPI, and Azure OpenAI.
 
